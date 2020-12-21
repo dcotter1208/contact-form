@@ -26,18 +26,6 @@ function ContactForm() {
           label='Last Name'
           variant='outlined'
         />
-        <TextField
-          className={classes.textInput}
-          id='first name'
-          label='First Name'
-          variant='outlined'
-        />
-        <TextField
-          className={classes.textInput}
-          id='first name'
-          label='First Name'
-          variant='outlined'
-        />
       </form>
     </>
   );
