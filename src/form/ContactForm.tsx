@@ -8,26 +8,35 @@ import { InputState, Status } from "./Input";
 
 function ContactForm() {
   const classes = useStyles();
-  const firstNameInputDefault: InputState = {
+  const inputDefault: InputState = {
     status: Status.Neutral,
     message: "",
   };
   const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
   const [firstNameInput, setFirstNameInput] = useState<InputState>(
-    firstNameInputDefault
+    inputDefault
   );
+  const [lastNameInput, setLastNameInput] = useState<InputState>(inputDefault);
 
   function validateFirstName() {
-    const firstNameInputState = validateName(firstName);
-    setFirstNameInput(firstNameInputState);
+    const inputState = validateName(firstName);
+    setFirstNameInput(inputState);
+  }
+
+  function validateLastName() {
+    const inputState = validateName(lastName);
+    setLastNameInput(inputState);
   }
 
   function onSubmitClick() {
     validateFirstName();
+    validateLastName();
   }
 
   function clearErrorStates() {
-    setFirstNameInput(firstNameInputDefault);
+    setFirstNameInput(inputDefault);
+    setLastNameInput(inputDefault);
   }
 
   function SubmitButton() {
@@ -61,10 +70,16 @@ function ContactForm() {
         />
         <TextField
           className={classes.textInput}
-          id='first name'
+          id='last name'
           label='Last Name'
           variant='outlined'
           required
+          onChange={(e) => {
+            setLastName(e.target.value);
+          }}
+          onFocus={clearErrorStates}
+          helperText={lastNameInput.message}
+          error={lastNameInput.status === Status.Error}
         />
         <PhoneField className={classes.textInput} />
         <TextField
