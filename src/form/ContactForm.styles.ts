@@ -6,6 +6,7 @@ let styles = (theme: Theme) =>
       display: "flex",
       flexDirection: "column",
       width: "60%",
+      maxWidth: "500px",
       margin: "10px auto auto auto",
     },
     textInput: {

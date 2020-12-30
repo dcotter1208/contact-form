@@ -30,6 +30,7 @@ function PhoneField(props: PhoneFieldProps) {
       id={id ? id : "phone-field"}
       label={label ? label : "Phone Number"}
       variant='outlined'
+      required
       InputProps={{
         inputProps: {
           component: <Phone />,
