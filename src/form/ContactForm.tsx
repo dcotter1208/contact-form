@@ -5,6 +5,7 @@ import Header from "../landing/header";
 import PhoneField from "./PhoneInput";
 import { validateName } from "../utils/form";
 import { InputState, Status } from "./Input";
+import TextInput from "./TextInput";
 
 function ContactForm() {
   const classes = useStyles();
@@ -55,11 +56,10 @@ function ContactForm() {
           variant={"h5"}
           title={"Contact Info"}
         />
-        <TextField
+        <TextInput
           className={classes.textInput}
           id='first name'
           label='First Name'
-          variant='outlined'
           required
           onChange={(e) => {
             setFirstName(e.target.value);
@@ -67,12 +67,12 @@ function ContactForm() {
           onFocus={clearErrorStates}
           helperText={firstNameInput.message}
           error={firstNameInput.status === Status.Error}
+          valid={firstNameInput.status === Status.Success}
         />
-        <TextField
+        <TextInput
           className={classes.textInput}
           id='last name'
           label='Last Name'
-          variant='outlined'
           required
           onChange={(e) => {
             setLastName(e.target.value);
@@ -80,6 +80,7 @@ function ContactForm() {
           onFocus={clearErrorStates}
           helperText={lastNameInput.message}
           error={lastNameInput.status === Status.Error}
+          valid={lastNameInput.status === Status.Success}
         />
         <PhoneField className={classes.textInput} />
         <TextField
