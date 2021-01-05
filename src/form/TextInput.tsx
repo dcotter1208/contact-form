@@ -12,6 +12,7 @@ export interface InputProps {
   helperText: string;
   error: boolean;
   valid: boolean;
+  onBlur?: () => void;
   required?: boolean;
   className?: string;
 }
@@ -25,6 +26,7 @@ function TextInput(props: InputProps): JSX.Element {
     required,
     onChange,
     onFocus,
+    onBlur,
     helperText,
     error,
     valid,
@@ -51,6 +53,7 @@ function TextInput(props: InputProps): JSX.Element {
         required={required}
         onChange={onChange}
         onFocus={onFocus}
+        onBlur={onBlur}
         helperText={helperText}
         error={error}
         InputProps={{

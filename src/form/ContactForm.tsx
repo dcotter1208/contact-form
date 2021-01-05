@@ -35,8 +35,11 @@ function ContactForm() {
     validateLastName();
   }
 
-  function clearErrorStates() {
+  function clearFirstNameValidation() {
     setFirstNameInput(inputDefault);
+  }
+
+  function clearLastNameValidation() {
     setLastNameInput(inputDefault);
   }
 
@@ -64,7 +67,8 @@ function ContactForm() {
           onChange={(e) => {
             setFirstName(e.target.value);
           }}
-          onFocus={clearErrorStates}
+          onFocus={clearFirstNameValidation}
+          onBlur={validateFirstName}
           helperText={firstNameInput.message}
           error={firstNameInput.status === Status.Error}
           valid={firstNameInput.status === Status.Success}
@@ -77,7 +81,8 @@ function ContactForm() {
           onChange={(e) => {
             setLastName(e.target.value);
           }}
-          onFocus={clearErrorStates}
+          onFocus={clearLastNameValidation}
+          onBlur={validateLastName}
           helperText={lastNameInput.message}
           error={lastNameInput.status === Status.Error}
           valid={lastNameInput.status === Status.Success}
