@@ -1,14 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, TextField } from "@material-ui/core";
 import useStyles from "./ContactForm.styles";
 import Header from "../landing/header";
 import PhoneField from "./PhoneInput";
+import { validateName } from "../utils/form";
+import { InputState, Status } from "./Input";
+import TextInput from "./TextInput";
 
 function ContactForm() {
   const classes = useStyles();
+  const inputDefault: InputState = {
+    status: Status.Neutral,
+    message: "",
+  };
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [firstNameInput, setFirstNameInput] = useState<InputState>(
+    inputDefault
+  );
+  const [lastNameInput, setLastNameInput] = useState<InputState>(inputDefault);
+
+  function validateFirstName() {
+    const inputState = validateName(firstName);
+    setFirstNameInput(inputState);
+  }
+
+  function validateLastName() {
+    const inputState = validateName(lastName);
+    setLastNameInput(inputState);
+  }
 
   function onSubmitClick() {
-    console.log("validate form");
+    validateFirstName();
+    validateLastName();
   }
 
   function SubmitButton() {
@@ -27,19 +51,37 @@ function ContactForm() {
           variant={"h5"}
           title={"Contact Info"}
         />
-        <TextField
+        <TextInput
           className={classes.textInput}
           id='first name'
           label='First Name'
-          variant='outlined'
           required
+          onChange={(e) => {
+            setFirstName(e.target.value);
+          }}
+          onFocus={() => {
+            setFirstNameInput(inputDefault);
+          }}
+          onBlur={validateFirstName}
+          helperText={firstNameInput.message}
+          error={firstNameInput.status === Status.Error}
+          valid={firstNameInput.status === Status.Success}
         />
-        <TextField
+        <TextInput
           className={classes.textInput}
-          id='first name'
+          id='last name'
           label='Last Name'
-          variant='outlined'
           required
+          onChange={(e) => {
+            setLastName(e.target.value);
+          }}
+          onFocus={() => {
+            setLastNameInput(inputDefault);
+          }}
+          onBlur={validateLastName}
+          helperText={lastNameInput.message}
+          error={lastNameInput.status === Status.Error}
+          valid={lastNameInput.status === Status.Success}
         />
         <PhoneField className={classes.textInput} />
         <TextField
