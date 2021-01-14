@@ -1,6 +1,5 @@
 import React from "react";
-import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
+import NumberFormat from "react-number-format";
 import { TextField } from "@material-ui/core";
 
 type PhoneFieldProps = {
@@ -9,14 +8,18 @@ type PhoneFieldProps = {
   className?: string;
 };
 
-function Phone(): JSX.Element {
+function Phone(props: any) {
   return (
-    <PhoneInput
-      placeholder=''
-      value={""}
-      onChange={() => {
-        console.log("phone input onChange");
+    <NumberFormat
+      {...props}
+      onValueChange={(values) => {
+        console.log("values: ", values);
       }}
+      isNumericString
+      format='(###) ###-####'
+      allowEmptyFormatting
+      mask='_'
+      type='tel'
     />
   );
 }
@@ -31,10 +34,12 @@ function PhoneField(props: PhoneFieldProps) {
       label={label ? label : "Phone Number"}
       variant='outlined'
       required
+      InputLabelProps={{
+        shrink: true,
+      }}
       InputProps={{
-        inputProps: {
-          component: <Phone />,
-        },
+        className: className,
+        inputComponent: Phone,
       }}
     ></TextField>
   );
