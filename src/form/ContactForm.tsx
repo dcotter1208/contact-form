@@ -3,7 +3,7 @@ import { Button, TextField } from "@material-ui/core";
 import useStyles from "./ContactForm.styles";
 import Header from "../landing/header";
 import PhoneField from "./PhoneInput";
-import { validateName } from "../utils/form";
+import { validateName, validatePhone } from "../utils/form";
 import { InputState, Status } from "./Input";
 import TextInput from "./TextInput";
 
@@ -15,10 +15,12 @@ function ContactForm() {
   };
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [firstNameInput, setFirstNameInput] = useState<InputState>(
     inputDefault
   );
   const [lastNameInput, setLastNameInput] = useState<InputState>(inputDefault);
+  const [phoneInput, setPhoneInput] = useState<InputState>(inputDefault);
 
   function validateFirstName() {
     const inputState = validateName(firstName);
@@ -30,9 +32,15 @@ function ContactForm() {
     setLastNameInput(inputState);
   }
 
+  function validatePhoneNumber() {
+    const inputState = validatePhone(phoneNumber);
+    setPhoneInput(inputState);
+  }
+
   function onSubmitClick() {
     validateFirstName();
     validateLastName();
+    validatePhoneNumber();
   }
 
   function SubmitButton() {
@@ -80,10 +88,21 @@ function ContactForm() {
           }}
           onBlur={validateLastName}
           helperText={lastNameInput.message}
+          error={phoneInput.status === Status.Error}
+          valid={phoneInput.status === Status.Success}
+        />
+        <PhoneField
+          className={classes.textInput}
+          onChange={(e) => {
+            console.log(e.target.value);
+            // setPhoneNumber(e.target.value);
+          }}
+          onFocus={() => {
+            // setPhoneInput(inputDefault);
+          }}
           error={lastNameInput.status === Status.Error}
           valid={lastNameInput.status === Status.Success}
         />
-        <PhoneField className={classes.textInput} />
         <TextField
           className={classes.textInput}
           id='email name'

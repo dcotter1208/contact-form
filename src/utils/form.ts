@@ -22,7 +22,17 @@ export function validateName(name: string): InputState {
     status: Status.Error,
     message: `Please try again.`,
   };
+
   return error;
+}
+
+export function validatePhone(numLength: string): InputState {
+  const MIN_CHARS = 10;
+
+  if (numLength.length === MIN_CHARS) {
+    return { status: Status.Success, message: "" };
+  }
+  return { status: Status.Error, message: "Phone number too short." };
 }
 
 function hasValidLength(name: string): boolean {
