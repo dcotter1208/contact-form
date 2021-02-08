@@ -88,20 +88,21 @@ function ContactForm() {
           }}
           onBlur={validateLastName}
           helperText={lastNameInput.message}
-          error={phoneInput.status === Status.Error}
-          valid={phoneInput.status === Status.Success}
+          error={lastNameInput.status === Status.Error}
+          valid={lastNameInput.status === Status.Success}
         />
         <PhoneField
           className={classes.textInput}
           onChange={(e) => {
-            console.log(e.target.value);
-            // setPhoneNumber(e.target.value);
+            setPhoneNumber(e.target.value);
           }}
           onFocus={() => {
-            // setPhoneInput(inputDefault);
+            setPhoneInput(inputDefault);
           }}
-          error={lastNameInput.status === Status.Error}
-          valid={lastNameInput.status === Status.Success}
+          onBlur={validatePhoneNumber}
+          helperText={phoneInput.message}
+          error={phoneInput.status === Status.Error}
+          valid={phoneInput.status === Status.Success}
         />
         <TextField
           className={classes.textInput}
