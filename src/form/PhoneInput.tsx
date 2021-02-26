@@ -18,10 +18,11 @@ type PhoneFieldProps = {
 };
 
 function Phone(props: any) {
-  const { inputRef, onChange, ...other } = props;
+  const { className, inputRef, onChange, ...other } = props;
 
   return (
     <NumberFormat
+      className={className}
       {...other}
       getInputRef={inputRef}
       onValueChange={(values) => {
@@ -42,11 +43,24 @@ function Phone(props: any) {
 }
 
 function PhoneField(props: PhoneFieldProps) {
-  const { id, label, className, helperText, onChange, onFocus, onBlur } = props;
+  const {
+    id,
+    label,
+    className,
+    helperText,
+    valid,
+    onChange,
+    onFocus,
+    onBlur,
+  } = props;
   const classes = useStyles();
+  const inputClassName = valid
+    ? `${className} ${classes.successInput}`
+    : className;
 
   function statusIcon() {
     const { valid, error } = props;
+
     if (valid) {
       return <CheckCircleOutlineOutlinedIcon className={classes.successIcon} />;
     } else if (error) {
@@ -57,7 +71,7 @@ function PhoneField(props: PhoneFieldProps) {
 
   return (
     <TextField
-      className={className}
+      className={inputClassName}
       onChange={onChange}
       onFocus={onFocus}
       onBlur={onBlur}
@@ -70,7 +84,7 @@ function PhoneField(props: PhoneFieldProps) {
         shrink: true,
       }}
       InputProps={{
-        className: className,
+        className: inputClassName,
         inputComponent: Phone,
         endAdornment: statusIcon(),
       }}
