@@ -9,9 +9,12 @@ let styles = (theme: Theme) =>
       color: "#f44336",
     },
     successInput: {
+      borderColor: "#18b500",
+      borderWidth: 2,
       "& fieldset": {
         borderColor: "#18b500",
         borderWidth: 2,
+        borderStyle: "solid",
       },
     },
   });
