@@ -35,6 +35,14 @@ export function validatePhone(numLength: string): InputState {
   return { status: Status.Error, message: "Phone number too short." };
 }
 
+export function validateEmail(email: string): InputState {
+  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  if (emailRegex.test(email)) {
+    return { status: Status.Success, message: "" };
+  }
+  return { status: Status.Error, message: "Invalid email." };
+}
+
 function hasValidLength(name: string): boolean {
   const MIN_CHARS = 1;
   const MAX_CHARS = 35;
